@@ -2,9 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-void counting()
+struct Guesses
 {
-  char guesses[1296][5];
+  char all[1296][5];
+};
+
+struct Guesses build_guesses()
+{
+  struct Guesses guesses;
   int index = 0;
   for (int i = 1; i < 7; i++)
   {
@@ -16,50 +21,58 @@ void counting()
         {
           char buf[5];
           sprintf(buf, "%d%d%d%d", i, j, k, l);
-          strcpy(guesses[index], buf);
+          strcpy(guesses.all[index], buf);
           index++;
         }
       }
     }
   }
-  for (int i = 0; i < 1296; i ++)
+
+  return guesses;
+}
+
+void test_build_guesses()
+{
+  struct Guesses guesses = build_guesses();
+
+  for (int i = 0; i < 1296; i++)
   {
-    puts(guesses[i]);
+    puts(guesses.all[i]);
   }
+}
+
+void prompt()
+{
+  int bytes_read;
+  size_t nbytes = 5;
+  char *my_string;
+  my_string = (char *)malloc(nbytes + 1);
+
+  puts("Next guess: RGBB");
+  puts("Enter results: ");
+
+  bytes_read = getline(&my_string, &nbytes, stdin);
+
+  if (bytes_read == -1)
+  {
+    puts("ERROR!");
+  }
+  else if (strcmp(my_string, "WWWB\n") == 0)
+  {
+    puts("The results were: ");
+    puts(my_string);
+  }
+  else
+  {
+    puts("fail");
+    exit(EXIT_FAILURE);
+  }
+
 }
 
 int main()
 {
-  counting();
-  int bytes_read;
-  size_t nbytes = 100;
-  char *my_string;
-  my_string = (char *) malloc (nbytes + 1);
-
-
-  while (1)
-  {
-    puts("Next guess: RGBB");
-    puts("Enter results: ");
-
-    bytes_read = getline (&my_string, &nbytes, stdin);
-
-    if (bytes_read == -1)
-    {
-      puts ("ERROR!");
-    }
-    else if (strcmp(my_string, "WWWB\n") == 0)
-    {
-      puts("The results were: ");
-      puts(my_string);
-
-    }
-    else
-    {
-      puts ("fail");
-      exit(EXIT_FAILURE);
-    }
-  }
+  // test_build_guesses();
+  struct Guesses guesses = build_guesses();
+  prompt();
 }
-
-
