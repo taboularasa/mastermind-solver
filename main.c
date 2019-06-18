@@ -5,6 +5,7 @@
 struct Guesses
 {
   char all[1296][5];
+  char reduced[1296][5];
 };
 
 size_t guess_size = 5;
@@ -43,9 +44,9 @@ void test_build_guesses()
   }
 }
 
-void prompt(char *result)
+void prompt(char *result, char *current_guess)
 {
-  puts("Next guess: RGBB");
+  printf("Next guess: %s\n", current_guess);
   puts("Enter results: ");
 
   int bytes_read;
@@ -53,18 +54,12 @@ void prompt(char *result)
 
   if (bytes_read == -1)
   {
-    puts("ERROR!");
-  }
-  else if (strcmp(result, "WWWB\n") == 0)
-  {
-    puts("The results were: ");
-    puts(result);
-  }
-  else
-  {
-    puts("fail");
     exit(EXIT_FAILURE);
   }
+}
+
+void reduce_guesses(struct Guesses guesses)
+{
 
 }
 
@@ -75,8 +70,14 @@ int main()
 
   char *my_string;
   my_string = (char *)malloc(guess_size + 1);
+  char *current_guess = "1122";
   while (1)
   {
-    prompt(my_string);
+    prompt(my_string, current_guess);
+    if (strcmp(my_string, "WWWB\n") == 0)
+    {
+      puts("The results were: ");
+      puts(my_string);
+    }
   }
 }
