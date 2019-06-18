@@ -7,6 +7,8 @@ struct Guesses
   char all[1296][5];
 };
 
+size_t guess_size = 5;
+
 struct Guesses build_guesses()
 {
   struct Guesses guesses;
@@ -41,26 +43,22 @@ void test_build_guesses()
   }
 }
 
-void prompt()
+void prompt(char *result)
 {
-  int bytes_read;
-  size_t nbytes = 5;
-  char *my_string;
-  my_string = (char *)malloc(nbytes + 1);
-
   puts("Next guess: RGBB");
   puts("Enter results: ");
 
-  bytes_read = getline(&my_string, &nbytes, stdin);
+  int bytes_read;
+  bytes_read = getline(&result, &guess_size, stdin);
 
   if (bytes_read == -1)
   {
     puts("ERROR!");
   }
-  else if (strcmp(my_string, "WWWB\n") == 0)
+  else if (strcmp(result, "WWWB\n") == 0)
   {
     puts("The results were: ");
-    puts(my_string);
+    puts(result);
   }
   else
   {
@@ -74,5 +72,11 @@ int main()
 {
   // test_build_guesses();
   struct Guesses guesses = build_guesses();
-  prompt();
+
+  char *my_string;
+  my_string = (char *)malloc(guess_size + 1);
+  while (1)
+  {
+    prompt(my_string);
+  }
 }
