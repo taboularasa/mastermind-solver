@@ -2,18 +2,21 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct Guesses
+struct Guess
 {
-  char all[1296][5];
-  char reduced[1296][5];
+  char data[5];
+  struct Guess *next;
 };
 
 size_t guess_size = 5;
 
-struct Guesses build_guesses()
+struct Guess* build_guesses()
 {
-  struct Guesses guesses;
-  int index = 0;
+  struct Guess *guess_list = (struct Guess *)malloc(sizeof(struct Guess));
+  struct Guess *prev = (struct Guess *)malloc(sizeof(struct Guess));
+  strcpy(guess_list->data, "1122");
+  guess_list->next = prev;
+
   for (int i = 1; i < 7; i++)
   {
     for (int j = 1; j < 7; j++)
@@ -24,23 +27,26 @@ struct Guesses build_guesses()
         {
           char buf[5];
           sprintf(buf, "%d%d%d%d", i, j, k, l);
-          strcpy(guesses.all[index], buf);
-          index++;
+          strcpy(prev->data, buf);
+          struct Guess *next = (struct Guess *)malloc(sizeof(struct Guess));
+          next->next = NULL;
+          prev->next = next;
+          prev = next;
         }
       }
     }
   }
 
-  return guesses;
+  return guess_list;
 }
 
 void test_build_guesses()
 {
-  struct Guesses guesses = build_guesses();
-
-  for (int i = 0; i < 1296; i++)
+  struct Guess *n = build_guesses();
+  while (n != NULL)
   {
-    puts(guesses.all[i]);
+    printf("%s\n", n->data);
+    n = n->next;
   }
 }
 
@@ -58,15 +64,9 @@ void prompt(char *result, char *current_guess)
   }
 }
 
-void reduce_guesses(struct Guesses guesses)
-{
-
-}
-
 int main()
 {
-  // test_build_guesses();
-  struct Guesses guesses = build_guesses();
+  test_build_guesses();
 
   char *my_string;
   my_string = (char *)malloc(guess_size + 1);
