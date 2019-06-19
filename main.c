@@ -1,48 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-struct Guess
-{
-  char data[5];
-  struct Guess *next;
-};
+#include "solver.h"
 
 size_t guess_size = 5;
 
-struct Guess* build_guesses()
-{
-  struct Guess *guess_list = (struct Guess *)malloc(sizeof(struct Guess));
-  struct Guess *prev = (struct Guess *)malloc(sizeof(struct Guess));
-  strcpy(guess_list->data, "1122");
-  guess_list->next = prev;
-
-  for (int i = 1; i < 7; i++)
-  {
-    for (int j = 1; j < 7; j++)
-    {
-      for (int k = 1; k < 7; k++)
-      {
-        for (int l = 1; l < 7; l++)
-        {
-          char buf[5];
-          sprintf(buf, "%d%d%d%d", i, j, k, l);
-          strcpy(prev->data, buf);
-          struct Guess *next = (struct Guess *)malloc(sizeof(struct Guess));
-          next->next = NULL;
-          prev->next = next;
-          prev = next;
-        }
-      }
-    }
-  }
-
-  return guess_list;
-}
-
 void test_build_guesses()
 {
-  struct Guess *n = build_guesses();
+  Guess *n = build_guesses();
   while (n != NULL)
   {
     printf("%s\n", n->data);
