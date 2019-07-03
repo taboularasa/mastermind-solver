@@ -1,3 +1,4 @@
 .vscode/ipch/*
-main.dSYM/*
-main
+msolver
+msolver.dSYM/*
+solver.o
