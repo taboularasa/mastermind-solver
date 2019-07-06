@@ -41,7 +41,7 @@ int main()
     prompt(my_string, current_guess);
     if (strcmp(my_string, "WWWB\n") == 0)
     {
-      puts("The results were: ");
+      puts("MATCH!: ");
       puts(my_string);
     }
   }

@@ -1,6 +1,6 @@
 P = msolver
 OBJECTS = solver.o
-CFLAGS = -g -Wall
+CFLAGS = -g -Wall -O0
 LDLIBS=
 CC=gcc
 
