@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "solver.h"
 
-Guess* build_guesses()
+Guess *build_guesses()
 {
   Guess *guess_list = (Guess *)malloc(sizeof(Guess));
   Guess *prev = (Guess *)malloc(sizeof(Guess));
@@ -18,7 +18,9 @@ Guess* build_guesses()
       {
         for (int l = 1; l < 7; l++)
         {
-          sprintf(prev->data, "%d%d%d%d", i, j, k, l);
+          char buf[5];
+          sprintf(buf, "%d%d%d%d", i, j, k, l);
+          strcpy(prev->data, buf);
           Guess *next = (Guess *)malloc(sizeof(Guess));
           next->next = NULL;
           prev->next = next;
