@@ -5,10 +5,11 @@
 
 Guess* build_guesses()
 {
-  Guess *guess_list = (Guess *)malloc(sizeof(Guess));
   Guess *prev = (Guess *)malloc(sizeof(Guess));
-  strcpy(guess_list->data, "1122");
-  guess_list->next = prev;
+  Guess guess_list = {
+    .data = {1, 1, 2, 2},
+    .next = prev
+  };
 
   for (int i = 1; i < 7; i++)
   {
@@ -28,7 +29,7 @@ Guess* build_guesses()
     }
   }
 
-  return guess_list;
+  return &guess_list;
 }
 
 

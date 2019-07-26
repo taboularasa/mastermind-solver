@@ -3,7 +3,7 @@
 
 typedef struct Guess
 {
-  char data[5];
+  int data[4];
   struct Guess *next;
 } Guess;
 
