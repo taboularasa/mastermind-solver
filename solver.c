@@ -33,7 +33,7 @@ Guess* build_guesses()
 
 
 
-void evaluate(evaluation_pair p)
+Score evaluate(EvaluationPair p)
 {
   int code_length = sizeof(p.code) / sizeof(p.code[0]);
   if (code_length != 4)
@@ -47,8 +47,7 @@ void evaluate(evaluation_pair p)
     exit(EXIT_FAILURE);
   }
 
-  int w_score = 0;
-  int b_score = 0;
+  Score score = {.white = 0, .black = 0};
   int code_counts[6] = {0, 0, 0, 0, 0, 0};
   int guess_counts[6] = {0, 0, 0, 0, 0, 0};
 
@@ -58,7 +57,7 @@ void evaluate(evaluation_pair p)
     char guess_letter = p.guess[i];
     if (code_letter == guess_letter)
     {
-      b_score++;
+      score.black++;
     }
 
     code_counts[p.code[i]]++;
@@ -68,14 +67,23 @@ void evaluate(evaluation_pair p)
   for (int i = 0; i < 6; i++)
   {
     if (guess_counts[i] < code_counts[i]) {
-      w_score += guess_counts[i];
+      score.white += guess_counts[i];
     } else {
-      w_score += code_counts[i];
+      score.white += code_counts[i];
     }
   }
 
-  w_score = w_score - b_score;
+  score.white = score.white - score.black;
 
-  printf("w_score == %d\n", w_score);
-  printf("b_score == %d\n", b_score);
+  return score;
 }
+
+// void eliminate(Guess *guesses, Guess guess, Score score)
+// {
+//   Guess *n = &guesses;
+//   while (n != NULL)
+//   {
+//     Guess *next = n->next;
+
+//   }
+// }

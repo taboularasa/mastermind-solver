@@ -1,4 +1,6 @@
 .vscode/ipch/*
 msolver
 msolver.dSYM/*
+testing
+testing.dSYM/*
 solver.o

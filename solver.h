@@ -7,15 +7,20 @@ typedef struct Guess
   struct Guess *next;
 } Guess;
 
-typedef struct evaluation_pair
+typedef struct EvaluationPair
 {
   int code[4];
   int guess[4];
-} evaluation_pair;
+} EvaluationPair;
 
-    Guess *
-    build_guesses();
+typedef struct Score
+{
+  int black;
+  int white;
+} Score;
 
-void evaluate(evaluation_pair p);
+Guess * build_guesses();
+Score evaluate(EvaluationPair p);
+// void eliminate(Guess *guesses, Guess guess);
 
 #endif // SOLVER_H

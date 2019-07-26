@@ -5,3 +5,10 @@ LDLIBS=
 CC=gcc
 
 $(P): $(OBJECTS)
+
+testing: $(OBJECTS)
+
+runtests: testing
+	./testing
+
+.PHONY: runtests
