@@ -6,11 +6,8 @@
 Guess* build_guesses()
 {
   Guess *prev = (Guess *)malloc(sizeof(Guess));
-  Guess guess_list = {
-    .data = {1, 1, 2, 2},
-    .next = prev
-  };
-
+  Guess *head = prev;
+  int count = 0;
   for (int i = 1; i < 7; i++)
   {
     for (int j = 1; j < 7; j++)
@@ -19,20 +16,26 @@ Guess* build_guesses()
       {
         for (int l = 1; l < 7; l++)
         {
-          sprintf(prev->data, "%d%d%d%d", i, j, k, l);
-          Guess *next = (Guess *)malloc(sizeof(Guess));
-          next->next = NULL;
-          prev->next = next;
-          prev = next;
+          count++;
+          prev->data[0] = i;
+          prev->data[1] = j;
+          prev->data[2] = k;
+          prev->data[3] = l;
+          if (count < 1296) {
+            Guess *next = (Guess *)malloc(sizeof(Guess));
+            next->next = NULL;
+            prev->next = next;
+            prev = next;
+          } else {
+            prev->next = NULL;
+          }
         }
       }
     }
   }
 
-  return &guess_list;
+  return head;
 }
-
-
 
 Score evaluate(EvaluationPair p)
 {

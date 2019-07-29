@@ -13,7 +13,7 @@ void test_build_guesses()
     count++;
     n = n->next;
   }
-  assert(count == 1298);
+  assert(count == 1296);
   puts("build_guesses tested successfully");
 }
 
@@ -23,6 +23,10 @@ void test_evaluate()
   Score score = evaluate(w1b0);
   assert(score.white == 1);
   assert(score.black == 0);
+  printf("code %d, %d, %d, %d\n", w1b0.code[0], w1b0.code[1], w1b0.code[2], w1b0.code[3]);
+  printf("guess %d, %d, %d, %d\n", w1b0.guess[0], w1b0.guess[1], w1b0.guess[2], w1b0.guess[3]);
+  printf("score.white %d\n", score.white);
+  printf("score.black %d\n", score.black);
 
   EvaluationPair w0b4 = {.code = {3, 4, 3, 1}, .guess = {3, 4, 3, 1}};
   score = evaluate(w0b4);
